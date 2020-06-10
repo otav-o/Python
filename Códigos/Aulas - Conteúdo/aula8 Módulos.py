@@ -4,7 +4,7 @@
 #ceil: arredondamento para cima 
 #floor: para baixo
 #trunc: truncar, elimina oq tem depois da vírgula sem nenhum arredondamento
-#pow: potÊncia, **
+#pow: potência, **
 #sqrt: raiz quadrada
 #factorial
 #

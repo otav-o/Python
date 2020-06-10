@@ -1,4 +1,0 @@
-import emoji
-print(:laughing:)
-
-
