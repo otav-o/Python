@@ -1,0 +1,4 @@
+import emoji
+print(:laughing:)
+
+
