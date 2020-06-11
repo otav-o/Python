@@ -1,2 +1,2 @@
 # Python
- Aulas e exercícios de Python 3
+ Aulas e exercícios de Introdução ao Python 3
