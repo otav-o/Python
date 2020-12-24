@@ -122,7 +122,7 @@ Good[::2]
 
 > Module 2 - Python Data Structures
 
-### Tuples
+## Tuples
 
 - Compound data type
 - Tuples are an ordered sequence
@@ -182,7 +182,7 @@ bigTuple[2][0] # 'hi'
 bigTuple[2][0][1] # 'i'
 ```
 
-### Lists
+## Lists
 
 - Are also ordered sequences
 - A List is represented with square brackets `[]`
@@ -237,5 +237,90 @@ print(sorted(sortedList)) # [-5, -3, 1]
 >
 > tuple1.index("disco")
 
-### Sets
+## Sets
+
+- Sets are a type of collection
+  - This means that like lists and tuples you can input different Python types
+- Unlike lists and tuples they are unordered
+  - This means sets do not record element position
+- Sets only have unique elements
+- To define a set you use curly brackets
+
+```python
+set1 = {10, "oi", True, "oi"}
+
+set1 = set(list1) # removes duplicates
+```
+
+- Set Operations
+
+  - Add
+    - `A.add(new item)`
+  - Remove
+    - `A.remove(item)`
+  - In
+    - `"oi" in A`
+    - Returns True or False
+
+- Mathematical set operations
+
+  - Intersection (&)
+    - All the items that are not in both sets disappear
+    - `set3 = set1 & set2`
+    - `set1.intersection(set2)`
+  - Union
+    - The result is a new set that has all the elements of set1 and set2 (and not just the overlap)
+    - But of course it will discard duplicate values
+    - `set3 = set1.union(set2)`
+  - Is subset
+    - Checking if a set is a subset (if it is contained in another)
+    - `set2.issubset(set1)` # True/False
+    - if all elements of set2 are in set1
+  - Is superset
+    - `set1.issuperset(set2)`
+  - Difference
+    - `set1.difference(set2)`
+      - all elements that are only contained in set1
+      - excludes set2 and set1 & set2
+
+  > can I use `in` to tuples and lists?
+
+```python
+A = [1, 2, 2, 1]
+B = set([1, 2, 2, 1])
+C = (1, 2, 2, 1)
+
+sum(A) == sum(B)
+sum(B) == sum(C)
+sum(A) == sum(C)
+```
+
+## Dictionaries
+
+- Collection that have keys in place of numerical indexes.
+  - **Keys can only be strings, numbers or tuples, but values can be any data type**
+- To create a dictionary you use curly brackets `{ }`
+- Each key is separated from its value by a colon `:`. Commas separate the items
+
+```python
+Dict = {"key1": 1, "key2": "2", "key3": [3, 3, 3], "key4": (4, 4, 4), ('key5'): 5, (0, 1): 6}
+
+Dict[('key5')] # 5
+```
+
+- **For every key, there can only be one single value, however, multiple keys can hold the same value**
+- Retrieving the keys of the dictionary
+  - `dict.keys()`
+- Retrieving values
+  - `dict.values()`
+- Adding an entry
+  - `dict['new key!'] = 1000`
+- Deleting an entry
+  - `del(dict['key1'])`
+- Verifying if an element is in the dictionary (by its key)
+  - `'key1' in dict` # True/False
+
+---
+
+> Module 3 - Python Programming Fundamentals
 
