@@ -324,3 +324,91 @@ Dict[('key5')] # 5
 
 > Module 3 - Python Programming Fundamentals
 
+## Conditions and Branching
+
+==, !=, >, <, >=, <=
+
+"Oi" == "Olá"
+
+- Branching allows us to run different statements for a different input.
+
+```python
+age = 19
+if (age > 18):
+	print("You can enter")
+elif (age == 18):
+	print('Come on next year!')
+else:
+    print("You are too young")
+print("move on")
+```
+
+- Logic operations take boolean values and produce different boolean values
+
+```python
+not(True) # False
+
+not(False) # True
+
+or, and, not
+```
+
+- Indent delimits code blocks
+
+```python
+if (album_year < 1980) or (album_year > 1989):
+	print("The album was made in the 70's or 90's")
+elif (album_year >= 1980) and (album_year <= 1989):
+    print("The album was made in the 80's")
+    
+    
+if not (album_year == '1984')
+	print("Album year is not 1984")
+```
+
+- Compare characters (ASCII)
+  - 'B' > 'A' # True
+  - When there are multiple letters, the first letter takes precedence in ordering
+  - Upper case letters have different ASCII code
+
+## Loops
+
+- For and while loops
+
+```python
+range(3) # [0,1,2]
+range(10,15) # [10,11,12,13,14]
+```
+
+```python
+for i in range(0,5):	# foreach
+	squares[i] = 'white'
+    
+for square in squares:
+    square = 'white'
+    
+for i, square in enumerate(squares):
+	print(i, square)
+```
+
+```python
+while(squares[i] != 'orange'):
+	i = i + 1 # i++ does not exist here
+```
+
+```python
+dates = [1982,1980,1973]
+N = len(dates)
+
+for i in range(N):
+    print(dates[i])
+    
+squares = ['oi', 'orange', 'orange', 'purple', 'blue ', 'orange']
+new_squares = []
+i = 0
+while squares[i] is not 'orange':
+    new_squares.append(squares[i])
+    i += 1
+print (new_squares)
+```
+
