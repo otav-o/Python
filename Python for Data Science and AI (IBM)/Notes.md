@@ -236,6 +236,8 @@ print(sorted(sortedList)) # [-5, -3, 1]
 > `help()` function can be useful. help(list1)
 >
 > tuple1.index("disco")
+>
+> list1.reverse()
 
 ## Sets
 
@@ -515,3 +517,61 @@ tuple2 = con(tuple1, ('x', 1)) # you can only concatenate tuple to tuple
 print(tuple2)
 ```
 
+## Objects and Classes
+
+- The class has data attributes and also has methods
+
+```python
+class Circle(object):
+    def _init_(self, radius = 3, color = 'blue'): # class constructor
+        self.radius = radius
+        self.color = color
+        
+    def add_radius(self, r):
+        self.radius += r
+    
+class Rectangle(object):
+    def _init_(self, color, height, width):
+        self.color = color;
+        self.height = height; # I don't know about semi-colons, they're probably optional
+        self.width = width
+        
+C1 = Circle(10, "red")
+C1.radius = 15
+C1.add_radius(8)
+
+BlueCircle = Circle(radius=100)
+```
+
+![image-20201228195649380](image-20201228195649380.png)
+
+- We do not need to worry about the self-parameter when calling the method
+- the `dir` function is useful for obtaining the list of data attributes and methods associated with the class
+  - `dir(Nameofobject)`
+
+> this part is optional
+>
+> ```python
+> # Import the library
+> 
+> import matplotlib.pyplot as plt
+> %matplotlib inline 
+> 
+> # ...
+> 
+> def drawCircle(self):
+>     plt.gca().add_patch(plt.Circle((0, 0), radius=self.radius, fc=self.color))
+>     plt.axis('scaled')
+>     plt.show() 
+> ```
+
+```python
+A=['1','2','3']
+
+for a in A:
+	print(2*a) # 11 22 33
+```
+
+---
+
+> Module 4 - Working with Data in Python
