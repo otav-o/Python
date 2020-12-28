@@ -392,7 +392,7 @@ for i, square in enumerate(squares):
 ```
 
 ```python
-while(squares[i] != 'orange'):
+while (squares[i] != 'orange'):
 	i = i + 1 # i++ does not exist here
 ```
 
@@ -410,5 +410,108 @@ while squares[i] is not 'orange':
     new_squares.append(squares[i])
     i += 1
 print (new_squares)
+```
+
+## Functions
+
+- Functions take some input then produce some output or change
+- It's just a piece of code you can reuse
+
+### Python built-in functions
+
+- You do not have to know how they work!
+
+#### Len
+
+- Returns the length of a sequence of collection
+
+#### Sum
+
+- Adds all the elements in a list or tuple
+  - what about other collections?
+
+#### Sorted vs Sort
+
+- The function `sorted()` returns **a new** sorted list or tuple
+- But method `sort()` changes the input collection
+
+```python
+sorted_list1 = sorted(list1);
+list2.sort();
+```
+
+### Making functions
+
+```python
+def add1(a):
+    """
+    add 1 to a
+    """
+	b = a + 1
+	return b
+
+c = add1(5) # 6
+```
+
+- Documentation: triple quotes. Shows this string if you use `help(add1)`
+- If you accidentally multiply an integer and a String instead of two integers, you won't get an error (remember that multiplication symbol can also mean repeat a sequence)
+- Return statement is not mandatory and Python will return none object by default
+- Python doesn't allow a function to have an empty body, so we can use the keyword `pass`
+- **The statement `return` always exits a function.**
+
+```python
+def NoWork():
+	pass
+	return None # this line is optional
+
+print(NoWork()) # None
+```
+
+- **Variadic parameters**
+  - Allow us to input a variable number of elements
+
+```python
+def ArtistNames(*names):
+	for name in names:
+		print(name)
+        
+ArtistNames("Michael Jacson", "AC/DC")
+```
+
+- **Default argument values**
+
+```python
+def isGoodRating(rating=4):
+    if (rating < 7):
+        print("This album sucks")
+    else:
+        print("This album is good")
+```
+
+### Scope
+
+- The part of the program where the variable is accessible.
+- Variables that are defined outside of any function are said to be within the global scope, meaning they can be accessed anywhere after they are defined
+- A variable that is declared inside a function is called a local variable
+- If a variable is not defined within a function, Python will check the global scope and uses its value
+- You use the word `global` to let variable be used outside the function scope.
+
+```python
+def AValue():
+	global value
+    value = '45 million'
+	return value
+
+AValue()
+print (value) # '45 million'
+```
+
+```python
+def con(a, b):
+    return(a + b)
+
+tuple1 = (1, 'a', (2, 2))
+tuple2 = con(tuple1, ('x', 1)) # you can only concatenate tuple to tuple
+print(tuple2)
 ```
 
