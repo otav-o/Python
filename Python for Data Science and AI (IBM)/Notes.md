@@ -575,3 +575,304 @@ for a in A:
 ---
 
 > Module 4 - Working with Data in Python
+
+## Reading files with open
+
+```python
+File1 = open("/resources/data/Example2.txt", "w")
+
+# the last parameter is mode: 'a' for appending, 'r' for reading, 'w' for writing
+
+File1.name # '/resources/data/Example2.txt'
+
+File1.mode # 'r'
+
+File1.close() # we must close the file object!
+```
+
+- Using a 'with' statement to open the file **is better practice** because it automatically closes the file.
+  - The code will run everything in the indent block, then closes the file.
+- file1 is a variable that points to file object
+
+```python
+with open('Example1.txt', 'r') as file1:
+    file_stuff = file1.read()
+    print(file_stuff)
+
+print(file1.closed) # says if it is closed
+print(file_stuff)
+```
+
+```python
+# Read certain amount of characters
+!wget -O /resources/data/Example1.txt https://s3-api.us-geo.objectstorage.softlayer.net/cf-courses-data/CognitiveClass/PY0101EN/labs/example1.txt
+    
+example1 = "/resources/data/Example1.txt"
+
+with open(example1, "r") as file1:
+    print(file1.read(4)) # This
+    print(file1.read(4)) #  is  
+    print(file1.read(7)) # line 1
+    print(file1.read(15)) # This is line 2
+```
+
+- We can output every line as an element **in a list** using the method `readlines()`
+  - The first line corresponds to the first element in the list
+  - The second line to the second element, and so on
+
+```python
+with open (example1, 'r') as file1:
+	FileAsList = file1.readlines()
+	# read all lines and save as a list
+    
+FileAsList[0]
+FileAsList[1]
+FileAsList[2] # third line
+```
+
+- The `open` function provides a File object that contains the methods and attributes you need in order to read, save and manipulate the file
+- `readline()` to read the first line of the file
+
+![Image](ReadChar.png)
+
+```python
+with open(example1, "r") as file1:
+    print("first line: " + file1.readline())
+```
+
+```python
+with open(example1, 'r') as file1:
+    i = 0;
+    for line in file1:
+        print('Iteration', str(i), ': ', line)
+        i = i + 1;
+```
+
+## Writing files with open
+
+- The method `.write()` works similar to the method `.readline()`, except instead of reading a new line it writes a new line.
+
+```python
+with open ('/resources/data/Example2.txt', 'w') as writefile:
+    writefile.write("This is line A\n")
+    writefile.write("This is line B\n")
+    
+# Using 'w' parameter: creates a file Example2.txt in your directory 
+# if you have that file in your directory, it will be overwritten
+```
+
+```python
+# You can verify modifications by reading the file and printing out the values
+
+with open('/resources/data/Example2.txt', 'r') as testwritefile:
+    print(testwritefile.read())
+```
+
+- By setting the mode argument to **a** you can append a new line as follows:
+
+```python
+with open('/resources/data/Example2.txt', 'a') as writenewlinefile:
+	writenewlinefile.write("This is line C\n")
+```
+
+```python
+Lines = ['This is line A\n', 'This is line B\n', 'This is line C\n']
+with open('Example2.txt', 'w') as writefile:
+    for line in Lines:
+        writefile.write(line)
+```
+
+```python
+with open('Example2.txt', 'r') as readfile:
+    with open('Example3.txt', 'w') as writefile:
+        for line in readfile:
+            writefile.write(line)
+```
+
+## Loading data with pandas
+
+- Dependencies = libraries: pre-written code to help solve problems
+- Pandas is a popular library for data analysis
+- It assumes that panda was installed by pip
+
+`import pandas as pd `
+
+### `pd.read_cvc(cvc_path)`
+
+- Stores data in a variable (data frame - comprised of rows and columns)
+- Also: `pd.read_excel(xlsx_path)`
+
+```python
+import pandas
+path = 'file1.csv'
+
+df = pandas.read_cvc(path)
+```
+
+### `df.head()`
+
+- Shows the first 5 rows of a data frame
+- Or pass a number by parameter to specify how many rows you want
+
+### `pd.DataFrame(dict)`
+
+- Creating a data frame out of a dictionary
+- The keys correspond to the column labels (table headers). The values are lists corresponding to the rows
+
+```python
+songs = {'Album' : ['Thriller', 'Back in Black', 'The Dark Side of the Moon', 'The Bodyguard', 'Bat Out of Hell'],
+        'Released': [1982, 1980, 1973, 1992, 1977],
+        'Length': ['00:42:19', '00:42:11', '00:42:49', '00:57:44', '00:46:33']}
+
+songs_frame = pd.DataFrame(songs)
+```
+
+![image-20201229081225676](image-20201229081225676.png)
+
+### `df['a']`
+
+- Obtain column 'a' as a series. Just use one bracket
+
+```python
+x = df['Length']
+```
+
+### `x = df[[col]]`
+
+- Creates a new dataframe
+- We just put the dataframe name and the name of the column(s) header enclosed in double brackets
+  - The result is **a new dataframe** comprised of the specified column(s)
+
+```python
+x = df[['Artist', 'Length', 'Genre']]
+```
+
+![image-20201229081635553](image-20201229081635553.png)
+
+### `df.iloc[row-index, column-index]`
+
+### `df.loc[row-index, 'column-label']`
+
+```python
+df.loc[0, 'Artist'] # Michael Jackson
+df.iloc[1, 0] # AC/DC
+```
+
+- You can slice dataframes and assign values to a new dataframe as well
+
+```python
+z = df.iloc[0:2, 0:2]
+z = df.loc[0:2, 'Artist':'Released']
+```
+
+![image-20201229082446681](image-20201229082446681.png)
+
+try `df.iloc[:, integer]`
+
+`.ix` is deprecated
+
+By the way, `df.loc[:,'col_header']` is for str or Boolean indexing
+
+> Please use .loc for label based indexing or .iloc for positional indexing
+
+## Working with and Saving data with Pandas
+
+- Pandas has the method unique to determine the unique elements in a column of a dataframe
+  - It removes duplicates
+
+```python
+df['column-name'].unique() # creates a list? another df?
+
+df['column-name'] >= 1980 # true/false values
+
+df1 = df[df['Released'] >= 1980]
+	# a new dataframe where each album was released after 1979
+    # returns all columns!
+```
+
+### Save as CSV
+
+```python
+dif1.to_csv('new_songs.csv') # saves a dataframe to csv file
+```
+
+- Remember to use `.csv`
+- There are other functions to save the dataframe in other formats
+
+## Simple APIs - Part 1
+
+- Application Program Interfaces
+- API Libraries
+- REST API (**RE**presentational **S**tate **T**ransfer)
+  - Request = input and Response = output
+  - A type of API that allow to communicate through the internet
+    - storage, access more data, AI algorithms and much more
+  - Your program is the client
+
+<img src="image-20201229203752930-1609285104436.png" alt="image-20201229203752930" style="zoom: 33%;" />
+
+- Like a function, you do not have to know how the API works, but just the inputs and outputs.
+- It allows comunication between your program and other software component
+
+`id_warriors = df_warriors[['id']].values[0][0]`
+
+- API key: way to access the api. Unique set of characters that API uses identify and authorize you. It's usually in the first API call
+  - Keep it secret!
+- An endpoint is simply the location of the service. It's used to find the API on the internet, just like a web address.
+
+```python
+!pip install ibm_watson get
+
+from ibm_watson import SpeechToTextV1
+import json
+from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
+
+url_s2tOtavio = "https://api.us-south.speech-to-text.watson.cloud.ibm.com/instances/*******" # sevice endpoint
+
+iam_apikey_s2t = "***********" # API key
+
+auth = IAMAuthenticator(iam_apikey_s2t) # receives something (?)
+s2t = SpeechToTextV1(authenticator=auth)
+s2t.set_service_url(url_s2tOtavio)
+
+filename = 'PolynomialRegressionandPipelines.mp3'
+
+with open(filename, mode='rb') as wav: # file object wav. rb is readmode but in binary
+    response = s2t.recognize(audio=wav, content_type='audio/mp3')
+    	# method regonize to return the recognized text. 
+        # Parameter audio: file object wav
+        # Parameter content_type: format of the audio file
+        
+response.result # this attribute contains a dictionary that includes the translation
+
+```
+
+```python
+from ibm_watson import LanguageTranslatorV3
+
+url_lt = 'https://...'
+apikey_lt = '***'
+version_lt = '2018-05-01'
+
+
+
+auth = IAMAuthenticator(apikey_lt)
+language_translator = LanguageTranslatorV3(version = version_lt, authenticator = auth)
+language_translator.set_service_url(url_lt) # Language translator object
+
+```
+
+```python
+from pandas.io.json import json_normalize
+json_normalize(language_translator.list_identifiable_languages().get_result(), 'languages')
+
+translation_response = language_translator.translate(text = recognized_text, model_id = 'en-es')
+
+translation = translation_response.get_result() # a dictionary
+spanish_translation = translation['translations'][0]['translation'] # obtain as a string
+
+# translate back to English
+
+english_translation = language_translator.translate(text = spanish_translation, model_id = 'es-en').get_result()
+```
+
