@@ -876,3 +876,206 @@ spanish_translation = translation['translations'][0]['translation'] # obtain as 
 english_translation = language_translator.translate(text = spanish_translation, model_id = 'es-en').get_result()
 ```
 
+> Module 5 - Working with Numpy Arrays
+
+## Numpy 1D (one dimensional) Arrays
+
+- Numpy is a library for scientific computing
+- It is the basis for pandas and has many advantages, like speed and memory
+- It has some Universal Functions
+
+> pip install numpy
+
+### The Basics and Array Creation
+
+- Similar as a list `list1 = ['a', 1, True, '23.45']`
+- But it's fixed in size and each element is of the same type.
+
+```python
+import numpy as np
+a = np.array([0, 1, 2, 3, 4]) # casting a list to nump array
+a[0]
+
+type(a) # numpy.ndarray
+a.dtype # dtyepe('int64') - all elements are from same type
+a.size # 5
+a.ndim # 1 - number of array dimensions (rank)
+a.shape # (5,) tuple of integers indicating the size in each dimension
+
+# numpy.org to more attributes
+```
+
+### Indexing and Slicing
+
+- Numpy arrays are mutable
+
+```python
+c = np.array([20, 1, 2, 3, 4])
+c # array([20, 1, 2, 3])
+
+c[0] = 100
+c[3] = 0
+d = c[1:4] # assigns 1,2,3 to a new np array
+c[3:5] = 300, 400
+```
+
+### Basic Operations
+
+- Numpy makes it easier to do many operations that are commonly performed in data science
+- These same operations are usually computationally faster and require less memory in numpy compared to regular Python 
+
+#### Vector addition and subtraction
+
+- Linear combination
+
+```python
+v = [0, 1]
+u = [1, 0]
+z = []
+for n, m in zip(u, v):	# consumes more resources
+    z.append(n + m) 
+    
+u = np.array([1, 0])
+v = np.array([0, 1])
+z = u + v 	# vector addition with one line of numpy code (runs faster)
+z 	# array([1, 1])
+
+z = u - v
+z 	# array([1, -1])
+```
+
+![image-20210101182853477](image-20210101182853477.png)
+
+#### Array multiplication with a scalar
+
+```python
+y = np.array([1, 2])
+z = 2 * y
+z	# array([2, 4]) each component is doubled
+
+# without numpy (slower):
+y = [1, 2]
+z = []
+for n in y:
+    z.append(2 * n)
+```
+
+![image-20210101184845930](image-20210101184845930.png)
+
+- Notice:
+
+```python
+y = [1, 2]
+z = 2 * y
+z 	# [1, 2, 1, 2]
+```
+
+#### Product of two numpy arrays (Hadamard product)
+
+> Hadamard product is a binary operation that takes two matrices of the same dimensions and produces another matrix of the same dimension as the operands, where each element i, j is the product of elements i, j of the original two matrices.
+
+```python
+u = np.array([1, 2])
+v = np.array([3, 2])
+z = u * v
+
+#
+u = [1, 2]
+v = [3, 2]
+z = []
+for n, m in zip (u, v):
+    z.append(n * m);
+```
+
+#### Dot product
+
+- We multiply the first component, then multiply the second and repeats until last one; finally, add the result together. See:
+
+```python
+u = [1, 2]
+v = [3, 1]
+# (1 * 3) + (2 * 1) = 5
+# the result is a number that represents how similar the two vectors are
+```
+
+```python
+u = np.array([1, 2])
+v = np.array([3, 1])
+result = np.dot(u, v)
+result # 5
+```
+
+#### Adding constant to a numpy array: broadcasting
+
+- Adds the scalar value to each element
+
+```python
+u = np.array([1, 2, 3, -1])
+z = u + 1
+z	# array([2, 3, 4, 0])
+```
+
+### Universal Functions
+
+- A universal function is a function that operates on numpy arrays
+
+#### `a.mean()`
+
+- Gives the average value of all the elements
+
+```python
+a = np.array([1, -1, 1, -1])
+mean_a = a.mean()
+```
+
+#### `a.max()`
+
+- Returns the largest value
+
+```python
+b = numpy.array([1, -2, 3, 4, 5])
+max_b = b.max()
+```
+
+#### `a.min()`
+
+### More functions
+
+#### `np.sin(numpyArray)`
+
+- Sine applied to each element in the array
+
+```python
+np.pi
+x = np.array([0, np.pi/2, np.pi])
+y = np.sin(x)
+y
+```
+
+- `np.pi`
+
+#### `np.linspace(start, end, num)`
+
+- Function for plotting mathematical functions: linespace
+- Starting point, ending point, number of samples to generate
+- **Returns evenly spaced numbers over a specified interval**
+
+```python
+np.linspace(-2, 2, num=5) # -2, -1, 0, 1, 2
+np.linspace(-2, 2, num=9) # -2, -1.5, -1, -0.5, 0, 0.5, 1, 1.5, 2
+```
+
+### Matplot
+
+> pip install matplotlib
+
+```python
+x = np.linspace(0, 2 * np.pi, 100)
+y = np.sin(x)
+
+import matplotlib.pyplot as plt
+plt.plot(x, y)
+```
+
+
+
