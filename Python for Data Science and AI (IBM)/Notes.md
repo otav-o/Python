@@ -566,7 +566,7 @@ BlueCircle = Circle(radius=100)
 > ```
 
 ```python
-A=['1','2','3']
+A = ['1','2','3']
 
 for a in A:
 	print(2*a) # 11 22 33
@@ -989,7 +989,7 @@ for n, m in zip (u, v):
 
 #### Dot product
 
-- We multiply the first component, then multiply the second and repeats until last one; finally, add the result together. See:
+- We multiply the first component, then multiply the second and repeats until last one; finally, add the results together. See:
 
 ```python
 u = [1, 2]
@@ -1004,6 +1004,8 @@ v = np.array([3, 1])
 result = np.dot(u, v)
 result # 5
 ```
+
+- **The dot product of perpendicular vectors is zero**
 
 #### Adding constant to a numpy array: broadcasting
 
@@ -1038,6 +1040,12 @@ max_b = b.max()
 ```
 
 #### `a.min()`
+
+#### `a.std()`
+
+```python
+standard_deviation = a.std()
+```
 
 ### More functions
 
@@ -1075,7 +1083,159 @@ y = np.sin(x)
 
 import matplotlib.pyplot as plt
 plt.plot(x, y)
+
+plt.show()
 ```
 
+```python
+ax = plt.axes()
+ax.arrow(0, 0, *u, head_width=0.05, color='r', head_length=0.1)
+plt.text(*(u + 0.1), 'u')
 
+plt.ylim(-2, 2)
+plt.xlim(-2, 2)
+```
+
+### List of indexes
+
+```python
+import numpy as np
+commonArray = [20, 1, 2, 3, 4]
+numpyArray = np.array(commonArray)
+
+commonArray[0] = 100
+numpyArray[0] = 100
+
+numpyArray[[0, 1, 2]]
+	# array([100,   1,   2])
+commonArray[[0, 1, 2]]
+	# error
+```
+
+- You can get or assign values of a numpy array passing indexes by a list
+
+```python
+c[indexesList] = 1000
+c
+```
+
+```python
+# Plotting functions
+
+def Plotvec1(u, z, v):
+    
+    ax = plt.axes()
+    ax.arrow(0, 0, *u, head_width=0.05, color='r', head_length=0.1)
+    plt.text(*(u + 0.1), 'u')
+    
+    ax.arrow(0, 0, *v, head_width=0.05, color='b', head_length=0.1)
+    plt.text(*(v + 0.1), 'v')
+    ax.arrow(0, 0, *z, head_width=0.05, head_length=0.1)
+    plt.text(*(z + 0.1), 'z')
+    plt.ylim(-2, 2)
+    plt.xlim(-2, 2)
+
+def Plotvec2(a,b):
+    ax = plt.axes()
+    ax.arrow(0, 0, *a, head_width=0.05, color ='r', head_length=0.1)
+    plt.text(*(a + 0.1), 'a')
+    ax.arrow(0, 0, *b, head_width=0.05, color ='b', head_length=0.1)
+    plt.text(*(b + 0.1), 'b')
+    plt.ylim(-2, 2)
+    plt.xlim(-2, 2)
+```
+
+```python
+# Create the numpy array in radians
+
+x = np.array([0, np.pi/2 , np.pi])
+```
+
+```python
+# Makeup a numpy array within [0, 2π] and 100 elements 
+
+x = np.linspace(0, 2*np.pi, num=100)
+
+# Calculate the sine of x list
+
+y = np.sin(x)
+
+# Plot the result
+
+plt.plot(x, y)
+plt.show()
+```
+
+![image-20210102130443430](image-20210102130443430.png)
+
+## Numpy 2D Arrays
+
+- You can use Numpy to build arrays of much higher dimensions
+
+```python
+a = [[11, 12, 13], [21, 22, 23], [31, 32, 33]]
+A = np.array(a)
+
+# 11 12 13
+# 21 22 23
+# 31 32 33
+
+A.ndim # 2
+A.shape # (3,3) first element: number of nested lists (rows)
+	# second element: the size of each nested list (number of columns)
+A.size # 9 (3*3)
+```
+
+- Each nested list corresponds to a different row of the matrix
+- `A.ndim` - number of axes (dimensions) referred to as the rank
+- Think ndm as the number of nested lists
+
+```python
+A[0][0]
+A[1][0]
+A[1][2]
+# the first bracket corresponds to the different nested lists (row indes)
+# the second one to the index of a particular element within the nested list (column index)
+
+# or use a single bracket to access the elements
+A[0,0]
+
+# we can also use slicing
+A[0, 0:2]
+
+A[0:2, 2]
+```
+
+#### Adding matrices
+
+- Each element in the new matrix is the sum of the corresponding elements in other two
+
+```python
+X = np.array([[1,0], [0,1]])
+Y = np.array([2,1], [1,2])
+Z = X + Y
+```
+
+#### Multiplication by a scalar
+
+- Identical as Numpy arrays
+
+#### Haramard product of matrix
+
+- Coresponds to multiplying each of the elements in the same position
+
+#### Matrix multiplication with numpy arrays
+
+- In linear algebra, before we can multiply matrix "A" by matrix "B" we must make sure that the number of columns in matrix "A" is equal to the number of rows in matrix "B"
+- remember dot product in school math
+
+```python
+A = np.array([[0,1,1]. [1,0,1]])
+B = np.array([[1,1], [1,1], [-1,1]])
+C = np.dot(A,B);
+```
+
+```
+'1,2,3,4'.split(',') # ['1','2','3','4']
+```
 
