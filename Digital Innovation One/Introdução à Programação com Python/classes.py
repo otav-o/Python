@@ -17,13 +17,16 @@ class Television:
             self.channel -= 1
 
 
-tv = Television()
-print(tv.on)
-tv.power()  # method, not function
-print(tv.on)
-tv.power()
-print(tv.on)
+print(__name__)  # __name__ is the module that calls execution.
 
-print(tv.channel)
-tv.increase_channel()
-print(tv.channel)
+if __name__ == '__main__':
+    tv = Television()
+    print(tv.on)
+    tv.power()  # method, not function
+    print(tv.on)
+    tv.power()
+    print(tv.on)
+
+    print(tv.channel)
+    tv.increase_channel()
+    print(tv.channel)
